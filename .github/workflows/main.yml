@@ -27,3 +27,9 @@ jobs:
       run: npm test
     - name: Build the Node.js code
       run: npm run build
+    - name: upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: distfolder
+        paht: $GITHUB_WORKSPACE/dist
+

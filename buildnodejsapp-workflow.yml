@@ -1,27 +1,29 @@
 ---
-name: build nodejs application
+name: build Nodejs application
 on: 
   workflow_dispatch:
-    branch:
+  push:
+    branches:
       - master
-    pull_request:
+  pull_request:
+    branches:
       - master
 jobs:
   job1:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
     steps:
     - name: Clone the repo
       uses: actions/checkout@v6
       with:
         ref: 'master'  # Optional
-    - name: Install Node Js
+    - name: Install Node.js
       uses: actions/setup-node@v6
       with:
         node-version: 18
         cache: npm
-    - name: Install node dependensies
-      run: npm ci       # aliase npm clean install
+    - name: Install node dependencies
+      run: npm ci       # alias npm clean install
     - name: Execute test cases
       run: npm test
-    - name: Build the node js code
+    - name: Build the Node.js code
       run: npm run build
