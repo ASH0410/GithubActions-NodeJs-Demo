@@ -14,7 +14,12 @@ jobs:
     strategy:
       matrix: 
        OS: [ubuntu-latest,windows-latest]
-       artifact_name: [artifact_ubuntu,artifact_windows]
+       include: # Define the artifact name mapping within the matrix itself
+         - OS: ubuntu-latest
+           ARTIFACT_NAME: artifact_ubuntu
+         - OS: windows-latest
+           ARTIFACT_NAME: artifact_windows
+
     runs-on: ${{matrix.OS}}
     steps:
     - name: Clone the repo
@@ -35,6 +40,6 @@ jobs:
     - name: upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{matrix.artifact_name}}
+        name: ${{matrix.ARTIFACT_NAME}} # Use the newly defined ARTIFACT_NAME variable
         path: dist/
 
